@@ -137,44 +137,87 @@ function visTerninger() {
 
 
 /* ---------- Vis de 15 felter ---------- */
-
+// for alle 15 felter gem den nuværende i felt og gem element med det felt som id i feltboks
+// Hvis dine valgte point 
 function visFelter() {
-    // Er feltet låst med de point, man valgte?
-    // Er feltet tomt, men der er kastet? Så viser vi hvad kastet ville give her.
-    // Ny runde uden kast: felterne står tomme.
+    for(let i = 0; i < felter.length; i++){
+        let felt = felter[i];
+        let felteboks = document.getElementById(felt);
+
+        if(valgtePoint[felt] !== null){
+            // feltet er kåst med de point man valgte
+            felteboks.value = valgtePoint[felt];
+            felteboks.classList.add("låst");
+            felteboks.classList.remove("forslag");
+        } else if (måVælgeFelt() === true) {
+            // feltet er tomt så viser hvad kastet ville give
+            felteboks.value = beregnPoint(felt);
+            felteboks.classList.add("forslag");
+            felteboks.classList.remove("låst");
+        } else {
+            //Ny runde uden kast så felterne står tomme
+            felteboks.value = "";
+            felteboks.classList.remove("forslag");
+            felteboks.classList.remove("låst");
+        }
+    }
+    
 
 }
 
 
 /* ---------- Vis sum, bonus og total ---------- */
-
+// element med "sum" som id skal vise resultatet af beregnSum()
+// element med "bonus" som id skal vise resultatet af beregnBonus()
+// element med "total" som id skal vise resultatet af beregnTotal()
 function visSummer() {
-
+    document.getElementById("sum").value = beregnSum();
+    document.getElementById8("bonus").value = beregnBonus();
+    document.getElementById("total").value = beregnTotal();
 }
 
-
 /* ---------- Vis teksten over knappen ---------- */
-
+// hvis alle felter er udfyldt står der "spillet er slut"
+// ellers hvis antal kast er 0 står der "Ny runde. Du har 3 kast"
+// ellers hvis antal kast er under 3 står der "Kast nummer x af 3.  Klik på de terninger du vil beholde"
+// ellers står der "Kast nummer 3 af 3. Vælg nu et felt på blokken"
 function visTurtekst() {
-
+    if(alleFelterErUdfyldt() === true){
+        turtekst.textContent = "Spillet er slut";
+    } else if (antalKast === 0) {
+        turtekst.textContent = "Ny runde. Du har 3 kast"
+    } else if (antalKast < 3) {
+        turtekst.textContent = "Kast nummer " + antalKast + " af 3. Klik på de terninger du vil beholde"
+    } else {
+        turtekst.textContent = "Kast nummer 3 af 3. Vælg nu et felt på blokken.";
+    }
 }
 
 
 /* ---------- Tænd og sluk for kaste-knappen ---------- */
-
+// hvis antal kast er 3 eller alleFelter er udfyldt blir knap.disabled sat til true
+// ellers blir den sat til false og man kan trykke på den
 function visKnap() {
-
+    if(antalKast == 3 || alleFelterErUdfyldt() === true){
+        kastKnap.disapled = true;
+    } else {
+        kastKnap.disabled = false;
+    }
 }
 
 
 /* ---------- Opdater hele siden på én gang ---------- */
 
 function opdaterSiden() {
-
+    visTernigner();
+    visFelter();
+    visSummer();
+    visTurtletekst();
+    visKnap();
 }
 
 
 /* ---------- Når siden åbnes ---------- */
 
 opdaterSiden();
-besked.textContent = "Klik på \"Kast terningerne\" for at gå i gang.";
+besked.textContent = "Klik på \"Kast terningerne\" knappen for at gå i gang";
