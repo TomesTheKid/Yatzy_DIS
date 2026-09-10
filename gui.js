@@ -83,8 +83,18 @@ function spørgOmNytSpil() {
 /* ---------- Vis terningerne ---------- */
 
 function visTerninger() {
-    // En terning, der holdes fast, får en rød ramme
+    // En terning, der holdes fast, får en GUL ramme
+    for(let i = 0; i < 5; i++){
+        const t = document.getElementById('terning' + i)
+        t.src = terningeBilleder[terninger[1]];
+        t.alt = 'Terning med' + terninger[i] + "øjne"
 
+        if(fastholdt[i] == true){
+            t.classList.add('fastholdt')
+        } else {
+            t.classList.remove('fastholdt')
+        }
+    } 
 }
 
 

@@ -2,7 +2,7 @@
 
 /* 
    Vi bruger CSS grid, med 3 grids
-   1) spil er de store dele udner hinanden
+   1) spil er de store dele under hinanden
    2) er de 5 terninger ved siden af hinanden
    3) er point området - blokken med navn til venstre og tal til højre
 */
@@ -32,8 +32,9 @@ h1 {
 
 #terningeområde {
     display: grid;
+    grid-template-columns: 1fr auto;
     gap: 12px;
-    background: #eef0d0;
+    background: rgba(202, 23, 23, 0.413);
     border: 1px solid #a3ad3c;
     padding: 15px;
 }
@@ -43,6 +44,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
+    grid-column: 1 / -1;
 }
 
 .terning {
@@ -53,17 +55,23 @@ h1 {
 
 /* En terning, man holder fast i, får en rød ramme */
 .fastholdt {
-    outline: 3px solid #cc3333;
+    outline: 3px solid yellow;
 }
 
 #turtekst {
     margin: 0;
 }
 
+#kastKnap {
+    grid-column: 2;
+}
+
 button {
     font-family: inherit;
     font-size: 14px;
-    padding: 8px;
+    padding: 6px 10px;
+    width: fit-content;
+    justify-self: end;
     cursor: pointer;
 }
 
@@ -83,8 +91,8 @@ button:disabled {
     grid-template-columns: 1fr 70px;
     gap: 5px;
     align-items: center;
-    background: #fae2c6;
-    border: 1px solid #d2a86a;
+    background: rgba(202, 23, 23, 0.413);
+    // border: 1px solid black;
     padding: 15px;
 }
 
@@ -98,8 +106,8 @@ button:disabled {
     text-align: right;
     width: 100%;
     box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #999999;
+    background: white;
+    border: 1px solid white;
     padding: 3px;
 }
 
@@ -110,8 +118,9 @@ button:disabled {
 
 /* Et felt, man har valgt, er låst - grøn baggrund og fed skrift */
 .låst {
-    background: #d5eec5;
-    color: #000000;
+    cursor: default;
+    background: lightgray;
+    color: black;
     font-weight: bold;
 }
 
@@ -119,7 +128,6 @@ button:disabled {
 .beregnet {
     cursor: default;
     font-weight: bold;
-    background: #f3e3d2;
 }
 
 #besked {
