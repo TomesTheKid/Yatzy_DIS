@@ -53,7 +53,7 @@ h1 {
     border-radius: 8px;
 }
 
-/* En terning, man holder fast i, får en rød ramme */
+/* En terning, man holder fast i, får en ramme */
 .fastholdt {
     outline: 3px solid yellow;
 }
@@ -92,7 +92,7 @@ button:disabled {
     gap: 5px;
     align-items: center;
     background: rgba(202, 23, 23, 0.413);
-    // border: 1px solid black;
+    border: 1px solid black;
     padding: 15px;
 }
 
@@ -116,7 +116,7 @@ button:disabled {
     color: #888888;
 }
 
-/* Et felt, man har valgt, er låst - grøn baggrund og fed skrift */
+/* Et felt, man har valgt, er låst - lysegrå baggrund og fed skrift */
 .låst {
     cursor: default;
     background: lightgray;

@@ -19,9 +19,10 @@ let terningeBilleder = [
 
 // De 15 felter i samme rækkefølge som på siden.
 // Navnene passer med id'erne i HTML'en og med nøglerne i valgtePoint.
-let felter = [
+let felter = ["enere", "toere", "treere", "firere", "femmere", "seksere",
+              "etPar", "toPar", "treEns", "fireEns", "fuldtHus",
+              "lilleStraight", "storStraight", "chance", "yatzy"];
 
-];
 
 let kastKnap = document.getElementById("kastKnap");
 let nytSpilKnap = document.getElementById("nytSpilKnap");
@@ -61,7 +62,10 @@ for (let i = 0; i < 5; i++) {
     terning.addEventListener("click", function () {
         // Man kan kun holde fast, når der er kastet mindst én gang,
         // og der stadig er et kast tilbage
-
+        if (antalKast >= 1 && antalKast <= 2) {
+            vendFastholdt(i);
+            opdaterSiden();
+        }
     });
 }
 
@@ -78,31 +82,29 @@ for (let i = 0; i < felter.length; i++) {
 }
 
 function klikPåFelt(felt) {
-    
-    if (antalKast === 0){
-        return;
-    }
-
-    if (valgtePoint[felt] !== null) {
-        return;
-    }
-
-    vælgfelt(felt);
-    opdaterSiden();
-
-    if (alleFelterErUdfyldt()) {
-        spørgOmNytSpil();
-    }
-
-
     // Man skal have kastet mindst én gang i runden
-
+    if (måVælgeFelt() === false) {
+        besked.textContent = "Du skal kaste terningerne, før du kan vælge et felt.";
+        return;
+    }
 
     // Et felt fra en tidligere runde er låst og kan ikke bruges igen.
-
+    if (valgtePoint[felt] !== null) {
+        besked.textContent = "Feltet er brugt. Vælg et af de tomme felter.";
+        return;
+    }
 
     // Skriv point i feltet og slut runden
+    vælgFelt(felt);
+    opdaterSiden();
 
+    if (alleFelterErUdfyldt() === true) {
+        besked.textContent = "Spillet er slut! Du fik " + beregnTotal() + " point.";
+        spørgOmNytSpil();
+    } else {
+        besked.textContent = "Du fik " + valgtePoint[felt] +
+            " point. Kast terningerne for at starte næste runde.";
+    }
 }
 
 
@@ -124,8 +126,8 @@ function visTerninger() {
     // En terning, der holdes fast, får en GUL ramme
     for(let i = 0; i < 5; i++){
         const t = document.getElementById('terning' + i)
-        t.src = terningeBilleder[terninger[1]];
-        t.alt = 'Terning med' + terninger[i] + "øjne"
+        t.src = terningeBilleder[terninger[i]];
+        t.alt = 'Terning med ' + terninger[i] + " øjne"
 
         if(fastholdt[i] == true){
             t.classList.add('fastholdt')
@@ -172,7 +174,7 @@ function visFelter() {
 // element med "total" som id skal vise resultatet af beregnTotal()
 function visSummer() {
     document.getElementById("sum").value = beregnSum();
-    document.getElementById8("bonus").value = beregnBonus();
+    document.getElementById("bonus").value = beregnBonus();
     document.getElementById("total").value = beregnTotal();
 }
 
@@ -199,7 +201,7 @@ function visTurtekst() {
 // ellers blir den sat til false og man kan trykke på den
 function visKnap() {
     if(antalKast == 3 || alleFelterErUdfyldt() === true){
-        kastKnap.disapled = true;
+        kastKnap.disabled = true;
     } else {
         kastKnap.disabled = false;
     }
@@ -209,10 +211,10 @@ function visKnap() {
 /* ---------- Opdater hele siden på én gang ---------- */
 
 function opdaterSiden() {
-    visTernigner();
+    visTerninger();
     visFelter();
     visSummer();
-    visTurtletekst();
+    visTurtekst();
     visKnap();
 }
 
