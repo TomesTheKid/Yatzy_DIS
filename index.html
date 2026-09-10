@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Yatzy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Hele spillet ligger i én kasse, som er delt op med CSS grid -->
+<div id="spil">
+
+    <h1>Yatzy</h1>
+
+    <!-- ØVERSTE DEL: de fem terninger og knappen man kaster med -->
+    <div id="terningeområde">
+
+        <!-- De fem terninger står ved siden af hinanden i et grid -->
+        <div id="terninger">
+            <img class="terning" id="terning0" src="dice-six-faces-one.png" alt="Terning">
+            <img class="terning" id="terning1" src="dice-six-faces-one.png" alt="Terning">
+            <img class="terning" id="terning2" src="dice-six-faces-one.png" alt="Terning">
+            <img class="terning" id="terning3" src="dice-six-faces-one.png" alt="Terning">
+            <img class="terning" id="terning4" src="dice-six-faces-one.png" alt="Terning">
+        </div>
+
+        <p id="turtekst">Ny runde. Du har tre kast.</p>
+        <button id="kastKnap">Kast terningerne</button>
+
+    </div>
+
+    <!-- NEDERSTE DEL: blokken med de 15 felter, sum, bonus og total -->
+    <div id="pointområde">
+
+        <label class="navn" for="enere">Enere</label>
+        <input class="felt" id="enere" type="text" readonly>
+
+        <label class="navn" for="toere">Toere</label>
+        <input class="felt" id="toere" type="text" readonly>
+
+        <label class="navn" for="treere">Treere</label>
+        <input class="felt" id="treere" type="text" readonly>
+
+        <label class="navn" for="firere">Firere</label>
+        <input class="felt" id="firere" type="text" readonly>
+
+        <label class="navn" for="femmere">Femmere</label>
+        <input class="felt" id="femmere" type="text" readonly>
+
+        <label class="navn" for="seksere">Seksere</label>
+        <input class="felt" id="seksere" type="text" readonly>
+
+        <!-- Sum og bonus hører til de seks øverste felter -->
+        <div class="navn beregnet">Sum</div>
+        <input class="felt beregnet" id="sum" type="text" readonly>
+
+        <div class="navn beregnet">Bonus (63 point)</div>
+        <input class="felt beregnet" id="bonus" type="text" readonly>
+
+        <label class="navn" for="etPar">Ét par</label>
+        <input class="felt" id="etPar" type="text" readonly>
+
+        <label class="navn" for="toPar">To par</label>
+        <input class="felt" id="toPar" type="text" readonly>
+
+        <label class="navn" for="treEns">Tre ens</label>
+        <input class="felt" id="treEns" type="text" readonly>
+
+        <label class="navn" for="fireEns">Fire ens</label>
+        <input class="felt" id="fireEns" type="text" readonly>
+
+        <label class="navn" for="fuldtHus">Fuldt hus</label>
+        <input class="felt" id="fuldtHus" type="text" readonly>
+
+        <label class="navn" for="lilleStraight">Lille straight</label>
+        <input class="felt" id="lilleStraight" type="text" readonly>
+
+        <label class="navn" for="storStraight">Stor straight</label>
+        <input class="felt" id="storStraight" type="text" readonly>
+
+        <label class="navn" for="chance">Chance</label>
+        <input class="felt" id="chance" type="text" readonly>
+
+        <label class="navn" for="yatzy">Yatzy</label>
+        <input class="felt" id="yatzy" type="text" readonly>
+
+        <div class="navn beregnet">Total</div>
+        <input class="felt beregnet" id="total" type="text" readonly>
+
+    </div>
+
+    <p id="besked">Klik på "Kast terningerne" for at gå i gang.</p>
+    <button id="nytSpilKnap">Nyt spil</button>
+
+</div>
+
+<!-- Først reglerne, bagefter koden der styrer siden -->
+<script src="spil.js"></script>
+<script src="gui.js"></script>
+
+</body>
+</html>
