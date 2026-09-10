@@ -8,7 +8,13 @@
 // Billedet til hvert øjental. terningeBilleder[3] er terningen med tre øjne.
 // Plads nummer 0 er tom, så tallene passer med øjnene.
 let terningeBilleder = [
-
+    "",
+    "dice-six-faces-one.png",
+    "dice-six-faces-two.png",
+    "dice-six-faces-three.png",
+    "dice-six-faces-four.png",
+    "dice-six-faces-five.png",
+    "dice-six-faces-six.png"
 ];
 
 // De 15 felter i samme rækkefølge som på siden.
@@ -26,6 +32,13 @@ let besked = document.getElementById("besked");
 /* ---------- Klik på "Kast terningerne" ---------- */
 
 kastKnap.addEventListener("click", function () {
+    if (antalKast >= 3 || alleFelterErUdfyldt()) {
+        return;
+    }
+
+    kastTerninger();
+    opdaterSiden();
+    
     // Man har tre kast i hver runde, og spillet skal ikke være slut
 
 });
@@ -34,6 +47,9 @@ kastKnap.addEventListener("click", function () {
 /* ---------- Klik på "Nyt spil" ---------- */
 
 nytSpilKnap.addEventListener("click", function () {
+    nytSpil();
+    besked.textContent = "Nyt spil. Klik på \"Kast terningerne\" for at gå i gang.";
+    opdaterSiden();
 
 });
 
@@ -62,6 +78,23 @@ for (let i = 0; i < felter.length; i++) {
 }
 
 function klikPåFelt(felt) {
+    
+    if (antalKast === 0){
+        return;
+    }
+
+    if (valgtePoint[felt] !== null) {
+        return;
+    }
+
+    vælgfelt(felt);
+    opdaterSiden();
+
+    if (alleFelterErUdfyldt()) {
+        spørgOmNytSpil();
+    }
+
+
     // Man skal have kastet mindst én gang i runden
 
 
@@ -76,7 +109,12 @@ function klikPåFelt(felt) {
 /* ---------- Spillet er slut: spørg om et nyt spil ---------- */
 
 function spørgOmNytSpil() {
-
+    besked.textContent = "Spillet er slut. Du fik " + beregnTotal() + " point.";
+    if (window.confirm("Vil du starte et nyt spil?")) {
+        nytSpil();
+        opdaterSiden();
+        besked.textContent = "Klik på \"Kast terningerne\" for at gå i gang.";
+    }
 }
 
 
